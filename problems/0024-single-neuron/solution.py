@@ -4,12 +4,10 @@ import numpy as np
 def sigmoid(z: float) -> list[float]:
 	return 1 / (1 + np.exp(-z))
 
-
 def mse_loss(y_true: list[int], y_pred: list[float]) -> float:
 	yt = np.array(y_true)
 	yp = np.array(y_pred)
 	return ((yt - yp) ** 2).sum() / yt.shape[0]
-
 
 def single_neuron_model(
 	feats_in: list[list[float]],
