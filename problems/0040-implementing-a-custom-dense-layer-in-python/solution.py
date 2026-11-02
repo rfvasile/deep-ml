@@ -78,29 +78,33 @@ class Dense(Layer):
 
     def backward_pass(self, accum_grad):
         """
-        accum_grad (B, N)
+        accum_grad = dL/dy, (B, N)
         """
-        # Compute gradients, update weights if trainable, return grad w.r.t. input
+        # Update W, w0 if trainable, return dL/dX
         assert self.input_shape is not None
         assert accum_grad.shape == (self.batch_size, self.n_units)
         assert self.layer_input is not None
         assert self.W is not None
 
+        # Chain rule y = X @ W + w0:  dL/d0 = dL/dy * dy/d0 where 0 is W, w0, X
         if self.trainable:
-            W_grad = self.layer_input.T @ accum_grad  # (B,F).T  x (B,N) -> (F,N)
+            # dy/dW = X, then dy/dw0 = 1
+            W_grad = self.layer_input.T @ accum_grad  # (B,F).T x (B,N) -> (F,N)
             w0_grad = accum_grad.sum(axis=0)  # (B,N) -> (N,)
 
             assert W_grad.shape == (self.input_shape[0], self.n_units)
             assert w0_grad.shape == (self.n_units,)
 
-            temp_W = copy.deepcopy(self.W)
-            assert temp_W is not None
+            init_W = copy.deepcopy(self.W)
+            assert init_W is not None
 
             self.W = self.optimizerW.update(self.W, W_grad)
             self.w0 = self.optimizerw0.update(self.w0, w0_grad)
-            return accum_grad @ temp_W.T  # (B,N) x (N,F) -> (B,F)
 
-        return accum_grad @ self.W.T  # (B,N) x (N,F) -> (B,F)
+            # dy/dX = W
+            return accum_grad @ init_W.T  # (B,N) x (N,F) -> (B,F)
+
+        return accum_grad @ self.W.T  # dy/dX = W: (B,N) x (N,F) -> (B,F)
 
     def output_shape(self):
         # Return output shape tuple
