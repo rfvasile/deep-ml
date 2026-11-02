@@ -95,14 +95,14 @@ class Dense(Layer):
             assert W_grad.shape == (self.input_shape[0], self.n_units)
             assert w0_grad.shape == (self.n_units,)
 
-            init_W = copy.deepcopy(self.W)
-            assert init_W is not None
+            initial_W = copy.deepcopy(self.W)
+            assert initial_W is not None
 
             self.W = self.optimizerW.update(self.W, W_grad)
             self.w0 = self.optimizerw0.update(self.w0, w0_grad)
 
             # dy/dX = W
-            return accum_grad @ init_W.T  # (B,N) x (N,F) -> (B,F)
+            return accum_grad @ initial_W.T  # (B,N) x (N,F) -> (B,F)
 
         return accum_grad @ self.W.T  # dy/dX = W: (B,N) x (N,F) -> (B,F)
 
