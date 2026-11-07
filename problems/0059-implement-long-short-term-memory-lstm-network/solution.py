@@ -21,6 +21,7 @@
 # - then multiplies it by tanh(c(t)) to push the values to be between -1 and 1
 
 # %%
+
 import numpy as np
 
 
@@ -66,21 +67,23 @@ class LSTM:
         c = initial_cell_state
         out = []
 
+        x = np.asarray(x).reshape(len(x), -1, 1)
         for t in x:
-            t = np.array(t).reshape(-1, 1)
+            inp = np.concatenate((h, t))
+
             # Forget gate
             # (H,H + D) @ (H + D,1) + (H,1) -> (H,1)
-            f = sigmoid(self.Wf @ np.concatenate((h, t)) + self.bf)
+            f = sigmoid(self.Wf @ inp + self.bf)
 
             # Input gate
-            i = sigmoid(self.Wi @ np.concatenate((h, t)) + self.bi)
-            c_cand = tanh(self.Wc @ np.concatenate((h, t)) + self.bc)
+            i = sigmoid(self.Wi @ inp + self.bi)
+            c_cand = tanh(self.Wc @ inp + self.bc)
 
             # Cell state
             c = f * c + i * c_cand
 
             # Output
-            o = sigmoid(self.Wo @ np.concatenate((h, t)) + self.bo)
+            o = sigmoid(self.Wo @ inp + self.bo)
             h = o * tanh(c)
             out.append(h)
 
