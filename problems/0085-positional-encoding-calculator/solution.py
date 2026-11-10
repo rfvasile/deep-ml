@@ -1,7 +1,10 @@
 import numpy as np
 
 
-def angle_rads(position, d_model):
+def pos_encoding(position, d_model):
+    if position == 0 or d_model <= 0:
+        return -1
+
     A = np.zeros((position, d_model), dtype=np.float32)
 
     for pos in range(position):
@@ -12,7 +15,10 @@ def angle_rads(position, d_model):
     return A.astype(np.float16)
 
 
-def pos_encoding(position, d_model):
-    if position == 0 or d_model <= 0:
-        return -1
-    return angle_rads(position, d_model)
+def pos_encoding2(position, d_model):
+    pos = np.arange(position)[:, None]  # (P, 1)
+    d = np.arange(d_model)[None, :]  # (1, D)
+    angle = pos / 10000 ** ((2 * (d // 2)) / d_model)
+    angle[:, 0::2] = np.sin(angle[:, 0::2])
+    angle[:, 1::2] = np.cos(angle[:, 1::2])
+    return angle.astype(np.float16)
