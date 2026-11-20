@@ -6,7 +6,7 @@ def relu(x):
 
 
 def residual_block(x: np.ndarray, w1: np.ndarray, w2: np.ndarray) -> np.ndarray:
-
+    """Residual block with shortcut connection"""
     y1 = x @ w1.T
     z1 = relu(y1)
 
