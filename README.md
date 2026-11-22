@@ -2,7 +2,7 @@
 
 My machine learning practice from [Deep-ML](https://www.deep-ml.com). Every solution here was written by hand.
 
-**31** solved · 31 problems · 0 labs · 0 math
+**32** solved · 32 problems · 0 labs · 0 math
 
 ![Coverage](./coverage.svg)
 
@@ -30,6 +30,7 @@ My machine learning practice from [Deep-ML](https://www.deep-ml.com). Every solu
 | [Softmax Activation Function Implementation ](https://www.deep-ml.com/problems/23) | easy | 2026-10-27 | [solution](problems/0023-softmax-activation-function-implementation) |
 | [Adam Optimizer](https://www.deep-ml.com/problems/87) | medium | 2026-11-22 | [solution](problems/0087-adam-optimizer) |
 | [Implement Adam Optimization Algorithm](https://www.deep-ml.com/problems/49) | medium | 2026-11-05 | [solution](problems/0049-implement-adam-optimization-algorithm) |
+| [Implement Batch Normalization for BCHW Input](https://www.deep-ml.com/problems/115) | medium | 2026-11-22 | [solution](problems/0115-implement-batch-normalization-for-bchw-input) |
 | [Implement Long Short-Term Memory (LSTM) Network](https://www.deep-ml.com/problems/59) | medium | 2026-11-07 | [solution](problems/0059-implement-long-short-term-memory-lstm-network) |
 | [Implement Masked Self-Attention](https://www.deep-ml.com/problems/107) | medium | 2026-11-20 | [solution](problems/0107-implement-masked-self-attention) |
 | [Implement PReLU Forward and Backward Pass](https://www.deep-ml.com/problems/98) | medium | 2026-11-19 | [solution](problems/0098-implement-prelu-forward-and-backward-pass) |
