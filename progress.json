@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:15:34.985Z",
+  "generated_at": "2026-11-22T09:18:52.070Z",
   "items": {
     "problem:22": {
       "kind": "problem",
@@ -400,9 +400,9 @@
       "url": "https://www.deep-ml.com/problems/87",
       "path": "problems/0087-adam-optimizer",
       "first_solved_at": "2026-11-22T09:15:34.416Z",
-      "last_pushed_at": "2026-11-22T09:15:34.416Z",
+      "last_pushed_at": "2026-11-22T09:18:51.555Z",
       "language": "python",
-      "lines": 17
+      "lines": 16
     }
   }
 }
