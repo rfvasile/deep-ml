@@ -37,8 +37,8 @@ def batch_normalization(
 
         rm = 0 if running_mean is None else running_mean
         rv = 1 if running_var is None else running_var
+        
         running_mean = (1 - momentum) * rm + momentum * mean
-
         running_var = (1 - momentum) * rv + momentum * variance
     else:
         assert running_var is not None
