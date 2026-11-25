@@ -7,17 +7,15 @@ def group_normalization(
     B, C, H, W = X.shape
     assert C % num_groups == 0
 
-    groups = X.reshape((B, num_groups, int(C / num_groups), H, W))
-
-    norm = np.array([])
-    for i in range(B):
-        for j in range(num_groups):
-            group: np.ndarray = groups[i, j, :, :, :]
-            mean = group.mean()
-            var = group.var(ddof=0)
-            group_norm = (group - mean) / np.sqrt(var + epsilon)
-            norm = np.append(norm, group_norm)
+    group_size = int(C / num_groups)
+    groups = X.reshape((B, num_groups, group_size, H, W))
+    mean = groups.mean(axis=(2, 3, 4), keepdims=True)
+    var = groups.var(axis=(2, 3, 4), keepdims=True)
+    norm = (groups - mean) / np.sqrt(var + epsilon)
+    assert norm.shape == ((B, num_groups, group_size, H, W)), norm.shape
 
     norm = norm.reshape((B, C, H, W))
     out = gamma * norm + beta
-    return out.astype(np.float32)
+    assert out.shape == (B, C, H, W)
+
+    return out
