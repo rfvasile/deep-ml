@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def compute_cross_entropy_loss(predicted_probs: np.ndarray, true_labels: np.ndarray, epsilon=1e-15) -> float:
+def compute_cross_entropy_loss_basic(predicted_probs: np.ndarray, true_labels: np.ndarray, epsilon=1e-15) -> float:
     """Implement categorial cross entropy."""
     assert predicted_probs.ndim == 2, "expected batch and class dimensions"
     assert true_labels.ndim == 2, "expected batch and class dimensions"
@@ -12,4 +12,10 @@ def compute_cross_entropy_loss(predicted_probs: np.ndarray, true_labels: np.ndar
             term = true_labels[i, j] * np.log(predicted_probs[i, j] + epsilon)
             sum += term
 
+    return np.round(-sum / predicted_probs.shape[0], 4)
+
+
+def compute_cross_entropy_loss(predicted_probs: np.ndarray, true_labels: np.ndarray, epsilon=1e-15) -> float:
+    """Implement categorial cross entropy."""
+    sum = (true_labels * np.log(predicted_probs + epsilon)).sum()
     return np.round(-sum / predicted_probs.shape[0], 4)
